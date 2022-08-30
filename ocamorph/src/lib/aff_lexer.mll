@@ -277,8 +277,8 @@ rule token preftrie sufftrie chars char_count flaghash flag_tbl flag_length flag
 	else Parser_common.NoCap, append, clip, char_constraints
       in
 
-      let _, trie_key = !Parser_common.normalize append reverse chars char_count in
-      let _, cont_key = !Parser_common.normalize clip reverse chars char_count in 
+      let _, trie_key = !Parser_common.normalize (Bytes.of_string append) reverse chars char_count in
+      let _, cont_key = !Parser_common.normalize (Bytes.of_string clip) reverse chars char_count in 
       let clip = if clip = "" then None else Some(clip) in
       P.COND(trie, trie_key, cont_key, clip, char_constraints, cap)
   | 6 ->

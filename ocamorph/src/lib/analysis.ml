@@ -290,11 +290,11 @@ let get_analyses stop_at_first blocking lemma_present_flag step chars compound_f
 				  let start, len = stem_lpos, (stem_rpos - stem_lpos + 1) in
 				  let stem = String.sub string start len in
 				  (* the guess items never preserve capitalization maybe they should : see news discussion 9/3/2006 on nlp.ner *)
-				  let stem = Parser_common.recapitalize stem morph_cap in
+				  let stem = Parser_common.recapitalize (Bytes.of_string stem) morph_cap in
 				  assert ( Utils.lazy_carp 2
 					     (lazy (Printf.eprintf "stem '%s'\n" 
-						      (stem) ) ); true );
-				  add_tag stem thisanalysis lpos rpos
+						      (Bytes.to_string stem) ) ); true );
+				  add_tag (Bytes.to_string stem) thisanalysis lpos rpos
 				 )
 			      in
 			      (* let thisanalysis = join_tag thisanalysis in *)
@@ -385,11 +385,11 @@ let get_analyses stop_at_first blocking lemma_present_flag step chars compound_f
 				     assert ( Utils.lazy_carp 3
 						(lazy (Printf.eprintf "before cap: stem '%s'\n" 
 							 (stem) ) ); true );
-				     let stem = Parser_common.recapitalize stem last_cap in
+				     let stem = Parser_common.recapitalize (Bytes.of_string stem) last_cap in
 				     assert ( Utils.lazy_carp 3
 						(lazy (Printf.eprintf "ok: stem '%s'\n" 
-							 (stem) ) ); true );
-				     add_tag stem thisanalysis lpos rpos
+							 (Bytes.to_string stem) ) ); true );
+				     add_tag (Bytes.to_string stem) thisanalysis lpos rpos
 				    )
 				 in
 				 add_tag "+" thisanalysis lpos rpos, lpos, rpos
@@ -415,11 +415,11 @@ let get_analyses stop_at_first blocking lemma_present_flag step chars compound_f
 			    else (
 			      let start, len = stem_lpos, (stem_rpos - stem_lpos + 1) in
 			      let stem = String.sub string start len in
-			      let stem = Parser_common.recapitalize stem last_cap in
+			      let stem = Parser_common.recapitalize (Bytes.of_string stem) last_cap in
 			      assert ( Utils.lazy_carp 3
 					 (lazy (Printf.eprintf "stem '%s'\n" 
-						  (stem) ) ); true );
-			      add_tag stem thisanalysis lpos rpos
+						  (Bytes.to_string stem) ) ); true );
+			      add_tag (Bytes.to_string stem) thisanalysis lpos rpos
 			     )
 			  in
 			  (* let blocking_analysis = join_tag blocking_analysis in *)
@@ -684,7 +684,7 @@ let make_function stop_at_first blocking preftrie sufftrie pseudoroot_flag lemma
   in
   let analyze string = 
     let len = String.length string in
-    let cap, _ = !Parser_common.normalize string true newchars newchar_count in
+    let cap, _ = !Parser_common.normalize (Bytes.of_string string) true newchars newchar_count in
     analyze string cap len
   in
   analyze 

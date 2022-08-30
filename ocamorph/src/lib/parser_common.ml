@@ -6,24 +6,24 @@ let pseudoroot_flag = ref 0
 
 
 let normalize_caps x reverse chars char_count = 
-  let len = String.length x in
+  let len = Bytes.length x in
   let cap_f start step stop x = 
     let rec cap_f i = function (cap, count, list, key) as l ->
       if i = stop  
       then l
       else (
-	let lc = Char.lowercase x.[i] in
+	let lc = Char.lowercase_ascii(Bytes.get x i) in
 	let code = Char.code lc in
 	if chars.(code) = 0 then (
 	  incr char_count;
 	  chars.(code) <- !char_count;
-	  chars.(Char.code x.[i]) <- !char_count;
+	  chars.(Char.code (Bytes.get x i)) <- !char_count;
 	 );
 	let l' = 
-	  if x.[i] = lc then 
+	  if Bytes.get x i = lc then 
 	    cap, count, list, lc :: key
 	  else (
-	    x.[i] <- lc; 
+	    Bytes.set x i lc; 
 	    let cap = cap || i = 0 in
 	    cap, count + 1, i :: list, lc :: key 
 	   )
@@ -48,18 +48,18 @@ let normalize_caps x reverse chars char_count =
   cap, key
 
 let normalize_no_caps x reverse chars char_count = 
-  let len = String.length x in
+  let len = Bytes.length x in
   let cap_f start step stop x = 
     let rec cap_f i = function key  ->
       if i = stop  
       then key
       else (
-	  let lc = x.[i] in
+	  let lc = Bytes.get x i in
 	  let code = Char.code lc in
 	    if chars.(code) = 0 then (
 	  incr char_count;
 	  chars.(code) <- !char_count;
-	  chars.(Char.code x.[i]) <- !char_count;
+	  chars.(Char.code (Bytes.get x i)) <- !char_count;
 	 );
 	    cap_f (i + step) (lc :: key)
 	)
@@ -111,16 +111,16 @@ let check_cap x y =
   || (x = Lowercase && y = NoCap)
 
 let recapitalize string cap = 
-  if string = "" then string else
+  if string = Bytes.of_string "" then string else
   let _ = match cap with 
-  | Capitalized -> string.[0] <- Char.uppercase string.[0]
-  | Allcaps -> let len = String.length string in
+  | Capitalized -> (Bytes.set string 0 (Char.uppercase (Bytes.get string 0)))
+  | Allcaps -> let len = Bytes.length string in
     for i = 0 to len - 1; do 
-      string.[i] <- Char.uppercase string.[i]
+      string.[i] <- Char.uppercase (Bytes.get string i)
     done
   | Mixed l -> 
-      let len = String.length string in
-      List.iter (fun i -> if i < len then string.[i] <- Char.uppercase string.[i]) l
+      let len = Bytes.length string in
+      List.iter (fun i -> if i < len then string.[i] <- Char.uppercase (Bytes.get string i)) l
   | _ -> ()
   in
   string

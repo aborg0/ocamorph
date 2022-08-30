@@ -79,7 +79,7 @@ rule token preftrie sufftrie chars char_count tag_hash flaghash flag_tbl maxflag
 	  global_free()
 	    (* only the free (inverse) flag is set *)
       in
-      let cap, x = !Parser_common.normalize m false chars char_count (* suffix *) in
+      let cap, x = !Parser_common.normalize (Bytes.of_string m) false chars char_count (* suffix *) in
       P.NODEINFO(sufftrie, x, [] (* endnode *), cap, bv);
   | 2 | 3 ->
       Utils.lazy_carp 4 (lazy (Printf.eprintf "TAG(%s) " x));
