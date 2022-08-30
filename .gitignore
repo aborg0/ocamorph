@@ -38,3 +38,4 @@ ocamorph/src/lib/*_parser.mli
 ocamorph/src/wrappers/ocastem/ocastem
 ocamorph/src/wrappers/ocamorph/ocamorph
 ocamorph/doc/texinfo/ocamorph.man
+**/*.bin.out
