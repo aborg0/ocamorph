@@ -177,12 +177,12 @@ endif
 export OCAMLDEP
 
 ifndef OCAMLLEX
-  OCAMLLEX := ocamllex
+  OCAMLLEX := /usr/bin/ocamllex
 endif
 export OCAMLLEX
 
 ifndef OCAMLYACC
-  OCAMLYACC := ocamlyacc
+  OCAMLYACC := /usr/bin/ocamlyacc
 endif
 export OCAMLYACC
 
@@ -637,10 +637,10 @@ top:			$(PRE_TARGETS)
 # generates native-code
 
 native-code:		$(PRE_TARGETS)
-			$(QUIET)$(MAKE) -r -f $(OCAMLMAKEFILE) $(NCRESULT) \
+			$(SHELL $(MAKE) -r -f $(OCAMLMAKEFILE) $(NCRESULT) \
 				REAL_RESULT="$(NCRESULT)" \
 				REAL_OCAMLC="$(OCAMLOPT)" \
-				make_deps=yes
+				make_deps=yes)
 nc:	native-code
 
 native-code-nolink:	$(PRE_TARGETS)

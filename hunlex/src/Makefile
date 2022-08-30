@@ -5,13 +5,13 @@ OCAMLBINDIR?=
 PREFIX?=/usr/local/
 # must add local OCAML distribution to path
 SHELL=`which bash`
-PATH = $(OCAMLBINDIR):$(shell echo $$PATH)
+PATH = $(OCAMLBINDIR):$(SHELL echo $$PATH)
 export PATH
 
 #############################################################
 # we are using the opt version of the compiler (it is faster)
 # if it is available (not available for any platform)
-OPT?=$(shell export PATH=$(PATH); which ocamlc.opt > /dev/null 2>&1 && echo .opt)
+OPT?=$(SHELL export PATH=$(PATH); which ocamlc.opt > /dev/null 2>&1 && echo .opt)
 # by specifying, use of a particular version of OCaml can be enforced
 
 OCAMLC		?=	ocamlc$(OPT)
@@ -34,7 +34,7 @@ OCAMLMAKEFILE=OCamlMakefile
 SHELL?=/bin/bash
 # this is in principle set in OCamlMakefile the same way
 # but we need it to find OCamlMakefile itself
-OCAMLLIBPATH = $(shell $(OCAMLC) -where)
+OCAMLLIBPATH = $(SHELL $(OCAMLC) -where)
 # and other nested libdirs (This really should be automatic...)
 #LIBDIRS = $(shell ls -1dp $(OCAMLLIBPATH)/* | grep '/$$')
 #INCDIRS = $(LIBDIRS)
@@ -74,9 +74,9 @@ TARGET?=native-code
 all: hal checkOCamlMakefile $(TARGET)
 
 hal: 
-	echo OCAMLBINDIR=$(OCAMLBINDIR)
-	echo $(PATH)
-	echo $(OCAMLC)
+	$(SHELL echo OCAMLBINDIR=$(OCAMLBINDIR))
+	$(SHELL echo $(PATH))
+	$(SHELL echo $(OCAMLC))
 
 #* LIBINSTALL_FILES - the files of a library that should be installed
 #                    using "findlib". Default:#
@@ -103,11 +103,11 @@ uninstall:
 # which it is ideally not 
 
 checkOCamlMakefile: 
-	$(QUIET)if [ -s $(OCAMLMAKEFILE) ]; \
+	$(SHELL if [ -s $(OCAMLMAKEFILE) ]; \
 	then echo "OCamlMakefile ok"; \
 	else echo "resetting local link to OCamlMakefile in distribution"; \
 		make $(OCAMLMAKEFILE); \
-	fi
+	fi)
 
 
 # if there is no local copy, assume it is under OCAMLLIBPATH
