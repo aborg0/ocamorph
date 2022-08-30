@@ -1,0 +1,18 @@
+/META/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/Makefile/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/aff_lexer.mll/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/aff_parser.mly/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/analysis.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/bv.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/constraint.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/dic_lexer.mll/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/dic_parser.mly/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/kr.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/minimize.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/parser_common.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/stringTrie.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/tag.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/trie.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/utils.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+/zip_list.ml/1.1.1.1/Fri Oct 29 09:30:50 2010//
+D
